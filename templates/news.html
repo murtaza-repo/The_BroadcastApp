@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="mt-2">
+        <h1 style="display:inline" class="text-primary">News</h1>
+        {% if user %}
+        <a style="display:inline;" class="btn btn-primary float-right mt-2" data-toggle="modal" data-target="#addNewsModal"
+            href="#"><i class="fa fa-plus"></i>&nbsp;Add</a>
+        {% endif %}
+    </div>
+    <hr>
+        {% for news in newsdb %}
+            <div class="card mt-2 mb-3" style="width: auto;">
+                {% if user %}
+                    {% if user.admin %}
+                        <div class="card-header">
+                            <a href="/editNews/{{ news.id }}"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
+                            &nbsp; &nbsp;
+                            <a href="/deleteNews/{{ news.id }}"><i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                        </div>
+                    {% elif user.id == news.author_id %}
+                        <div class="card-header">
+                            <a href="/editNews/{{ news.id }}"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title text-primary text-justify" style="word-spacing: -1px;">
+                        {{ news.headline }}
+                    </h5>
+                    <p class="card-subtitle mb-2 text-monospace text-muted" style="font-weight: 100; font-size: x-small;">Category: {{ news.category }}</p>
+                    <p class="card-text text-justify" style="word-spacing: -1px; white-space: pre-wrap;">{{ news.description }}</p>
+                    <p class="card-subtitle mt-2 text-monospace text-muted" style="font-weight: 100; font-size: x-small;">News by {{ news.author.fullName.split()[0]}} / {{ news.uploaded_at }}</p>
+                </div>
+            </div>
+    {% endfor %}
+
+    <!-- Modal addNews -->
+    <div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Add News</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form action="{{ url_for('addNews') }}" method="POST">
+                    <div class="modal-body">
+                        <div class="form-label-group">
+                            <input type="text" name="headline" id="inputHeadline" class="form-control" placeholder="Headline"
+                                autofocus required>
+                            <label for="inputHeadline">Headline</label>
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Category"
+                                autofocus required>
+                            <label for="inputCategory">Category</label>
+                        </div>
+                
+                        <div class="form-label-group">
+                            <textarea class="form-control" name="description" id="inputDesc" placeholder="Description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

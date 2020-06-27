@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block body %}
+<br>
+<div>
+    <h6><strong>{{ date.strftime("%A") }}</strong> <p class="small mt-2">{{ date.strftime("%B") }} {{ date.strftime("%d") }}, {{ date.strftime("%Y") }}</p></h6>
+</div> 
+<br>
+<main role="main">
+    <div class="jumbotron">
+        <div class="col-sm-8 mx-auto">
+            <h2>Welcome</h2>
+            <p class="text-justify">With <strong>The Broadcast App</strong> read breaking news, Central & State politics headlines, news alerts, Bollywood news, Sports news, and live news from categories such as Business, Travel, Gadgets, and Education of India & around the World.</p>
+            <p>
+                <a class="btn btn-primary" href="/news" role="button">Read news &raquo;</a>
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

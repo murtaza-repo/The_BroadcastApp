@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <form class="form-sign mt-3" action="/editNews/{{ news.id }}" method="POST">
+
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Edit News</h1>
+        </div>
+
+        <div class="form-label-group">
+            <input type="text" name="headline" id="inputHeadline" class="form-control" placeholder="Headline"
+                value='{{ news.headline }}' autofocus required>
+            <label for="inputHeadline">Headline</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Category" autofocus
+            value='{{ news.category }}' required>
+            <label for="inputCategory">Category</label>
+        </div>
+
+        <div class="form-label-group">
+            <textarea class="form-control" name="description" id="inputDesc" placeholder="Description"
+                rows="3">{{ news.description }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Update</button>
+    </form>
+
+{% endblock %}

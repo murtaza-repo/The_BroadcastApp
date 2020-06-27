@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">
+{% endblock %}
+    
+{% block body %}
+    <form class="form-sign" action="{{ url_for('signin') }}" method="POST">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="{{ url_for('static', filename='img/titleIcon.png') }}" alt="The Broadcast" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        </div>
+        <div class="text-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <p class=flashes>
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            </p>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="form-label-group">
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Email address</label>
+        </div>
+
+        <div class="form-label-group">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Password</label>
+        </div>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        
+        <div class="mt-2 text-center">
+            <label class="msg">
+            {{ msg }}   
+            </label>
+        </div>
+        <p class="mt-2 mb-3 text-muted text-center">Need an acount? <a href="{{ url_for('signup') }}">Sign up</a></p>
+    </form>
+{% endblock %}
