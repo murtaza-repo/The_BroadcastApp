@@ -49,6 +49,9 @@
                 <a class="nav-link dropdown-toggle btn text-primary" href="#" id="dropdown" data-toggle="dropdown" style="background-color: white;" aria-haspopup="true" aria-expanded="false" style="color: white;">
                   <i class="fa fa-user"></i>&nbsp;{{ user.fullName }}</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown">
+                  {% if user.admin %}
+                    <a class="dropdown-item" href="{{ url_for('viewUsers') }}">Manage Users</a>
+                  {% endif %}
                   <a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a>
                   <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
                 </div>
@@ -57,8 +60,33 @@
           </div>
           {% endif %}
         </div>
-        
     </nav>
+    
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container mt-3 text-center">
+        {% for category, message in messages %}
+          {% if category == 'error' %}
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+          {% elif category == 'info' %}
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+          {% elif category == 'warning' %}
+            <div class="alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
 
     <div class="container">
         {% block body %} {% endblock %}

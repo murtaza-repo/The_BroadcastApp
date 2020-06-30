@@ -52,8 +52,9 @@
     padding: 0 20px;
 }
 
-@media screen and (max-width: 600px) {
-    .profileTable{
-        text-align: -webkit-center;
-    }
-  }
+
+/* Profile styling */
+.profileTable{
+    text-align: -webkit-center;
+}
+/* ----- */

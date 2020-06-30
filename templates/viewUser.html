@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ResponsiveTable.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <table class="mt-4">
+        <caption style="caption-side: top; text-align: center;">All Users</caption>
+        <thead>
+            <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Email</th>
+                <th scope="col">Delete User</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in all_users %}
+                {% if user.fullName != 'Administrator' %}
+                    <tr>
+                        <td data-label="Full Name">{{ user.fullName }}</td>
+                        <td data-label="Phone No.">{% if user.phone %}{{ user.phone }}{% else %}NA{% endif %}</td>
+                        <td data-label="Email">{{ user.email }}</td>
+                       <td data-label="Delete User">
+                            <a href="/deleteProfile/{{ user.id }}">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

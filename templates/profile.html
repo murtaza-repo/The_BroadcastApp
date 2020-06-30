@@ -5,10 +5,6 @@
     {% endblock %}
 
     {% block body %}
-        <div class="mt-3 msg text-center">
-            <p>{{ msg }}</p>
-        </div>
-
         <div class="card-deck mb-3">
             <div class="card mt-5" style="width: auto; border-color: cornflowerblue; border-radius: 15px;">
                 <div class="card-body">
@@ -24,14 +20,11 @@
                     <hr style="border-color: cornflowerblue;">
                     <p class="card-text">
                     <div class="row">
-                        <div class="col-sm-4 text-center img-responsive mt-4">
-                            <img src="{{ url_for('static', filename='img/titleIcon.png') }}" alt="title" width="120" height="160" >
-                        </div>
-                        <div class="col-sm-8 profileTable">
+                        <div class="col profileTable">
                             <table class="table table-borderless" style="width: auto;">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2"><h2 class="font-weight-bold">{{ user.fullName }}</h2></td>
+                                        <td colspan="2"><h4 class="font-weight-bold">{{ user.fullName }}</h4></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"><i class="fa fa-phone"></i>&nbsp;&nbsp; &nbsp;{% if user.phone %}{{ user.phone }}{% else %}NA</td>{% endif %}
@@ -62,7 +55,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="form-sign" action="{{ url_for('editProfile') }}" method="POST">
+                    <form class="form-sign" action="/editProfile/{{ user.id }}" method="POST">
                         <div class="modal-body">
                             <div class="form-label-group">
                                 <input type="text" name="fullName" id="inputName" class="form-control" placeholder="Full name"
@@ -102,7 +95,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="form-sign" action="{{ url_for('resetPassword') }}" method="POST">
+                    <form class="form-sign" action="/resetPassword/{{ user.id }}" method="POST">
                         <div class="modal-body">
                             <div class="form-label-group">
                                 <input type="password" name="password" id="inputPassword" class="form-control"
@@ -139,7 +132,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <a href="{{ url_for('deleteProfile') }}" type="button" class="btn btn-primary">Yes</a>
+                <a href="/deleteProfile/{{ user.id }}" type="button" class="btn btn-primary">Yes</a>
                 </div>
             </div>
             </div>
