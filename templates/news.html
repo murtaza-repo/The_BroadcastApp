@@ -35,7 +35,7 @@
                     </h5>
                     <p class="card-subtitle mb-2 text-monospace text-muted" style="font-weight: 100; font-size: x-small;">Category: {{ news.category }}</p>
                     <p class="card-text text-justify" style="word-spacing: -1px; white-space: pre-wrap;">{{ news.description }}</p>
-                    <p class="card-subtitle mt-2 text-monospace text-muted" style="font-weight: 100; font-size: x-small;">News by {{ news.author.fullName.split()[0]}} / {{ news.uploaded_at }}</p>
+                    <p class="card-subtitle mt-2 text-monospace text-muted" style="font-weight: 100; font-size: x-small;">News by {% if news.author %}{ news.author.fullName.split()[0]}}{% else %}User{% endif %} / {{ news.uploaded_at }}</p>
                 </div>
             </div>
     {% endfor %}
